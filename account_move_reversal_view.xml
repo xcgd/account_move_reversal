@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    
+    <record id="view_move_reversal_form" model="ir.ui.view">
+        <field name="name">account.move.form.reversal</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="to_check" position="after">
+                <group attrs="{'invisible':[('reverseof_id', '!=', False)]}">
+                    <field name="reverseof_id"/> 
+                </group>
+            </label>
+        </field>
+    </record>
+
+    </data>
+</openerp>
