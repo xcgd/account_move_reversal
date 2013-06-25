@@ -2,49 +2,92 @@
 <openerp>
     <data>
 
-        <record id="account_move_resersal_view" model="ir.ui.view">
-            <field name="name">Creates Moves Reversals</field>
-            <field name="model">account.move.reversal</field>
+        <!-- confirm -->
+        <record id="account_move_resersal_confirm_view" model="ir.ui.view">
+            <field name="name">Confirm Moves Reversals</field>
+            <field name="model">account.move.reversal.confirm</field>
             <field name="arch" type="xml">
-                <form string="Creates Moves Reversals" version="7.0">
-                    <separator string="Choose a period or a period offset:"/>
-                    <group>
-                        <field name="current_period"/>
-                        <field name="offset_period"/>
-                        <field name="period_id"/>
-                    </group>
-                    <separator string="Choose a journal or use previous/default:"/>
-                    <group>
-                        <field name="default_journal"/>
-                        <field name="previous_journal"/>
-                        <field name="journal_id"/>
+                <form string="Confirm Moves Reversals" version="7.0">
+                    <separator string="Some moves was already reversed please select moves to reverse again:"/>
+                    <group readonly="1">
+                        <field name="to_confirm_id" nolabel="1" mode="tree">
+                            <tree editable="bottom">
+                                <field name="name" readonly="1"/>
+                                <field name="ref" readonly="1"/>
+                                <field name="date" readonly="1"/>
+                                <field name="period_id" readonly="1"/>
+                                <field name="journal_id" readonly="1"/>
+                                <field name="partner_id" readonly="1"/>
+                                <field name="amount" readonly="1"/>
+                                <field name="state" readonly="1"/>
+                            </tree>
+                        </field>
                     </group>
                     <footer>
-                        <button string="Create" name="create_reversals" type="object" default_focus="1" class="oe_highlight"/>
+                        <button string="Confirm" name="confirm_reversals" type="object" default_focus="1" class="oe_highlight"/>
+                        or
                         <button string="Cancel" class="oe_link" special="cancel"/> 
                     </footer>
                 </form>
             </field>
         </record>
 
-        <record id="action_account_move_reversal" model="ir.actions.act_window">
-            <field name="name">Creates Moves Reversals</field>
+        <!-- call from wizard code -->
+        <!--record id="action_account_move_reversal_confirm" model="ir.actions.act_window">
+            <field name="name">Confirm Moves Reversals</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">account.move.reversal</field>
+            <field name="res_model">account.move.reversal.confirm</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="account_move_resersal_view"/>
+            <field name="view_id" ref="account_move_resersal_confirm_view"/>
+            <field name="target">new</field>
+            <field name="multi">True</field>
+        </record-->
+
+        <!-- create -->
+        <record id="account_move_resersal_create_view" model="ir.ui.view">
+            <field name="name">Create Moves Reversals</field>
+            <field name="model">account.move.reversal.create</field>
+            <field name="arch" type="xml">
+                <form string="Create Moves Reversals" version="7.0">
+                    <separator string="Period for Reversals:"/>
+                    <group>
+                        <field name="period_choice"/>
+                        <field name="period_offset" attrs="{'invisible': [('period_choice', '!=', 'offset')]}"/>
+                        <field name="period_id" attrs="{'invisible': [('period_choice', '!=', 'specific')]}"/>
+                    </group>
+                    <separator string="Journal for Reversals:"/>
+                    <group>
+                        <field name="journal_choice"/>
+                        <field name="journal_id" attrs="{'invisible': [('journal_choice', '!=', 'specific')]}"/>
+                    </group>
+                    <footer>
+                        <button string="Create" name="create_reversals" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/> 
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_account_move_reversal_create" model="ir.actions.act_window">
+            <field name="name">Create Moves Reversals</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.move.reversal.create</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_move_resersal_create_view"/>
             <field name="target">new</field>
             <field name="multi">True</field>
         </record>
 
         <record id="values_account_move_reversal" model="ir.values">
-            <field name="name">Creates Moves Reversals</field>
+            <field name="name">Create Moves Reversals</field>
             <field name="model_id" ref="account.model_account_move" />
             <field name="model">account.move</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_account_move_reversal'))" />
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_account_move_reversal_create'))" />
         </record>
 
     </data>
