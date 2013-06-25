@@ -13,6 +13,7 @@
     ],
     'data': [
         'account_move_reversal_view.xml',
+        'res_config_view.xml',
         'security/ir.model.access.csv',
         'wizard/account_move_reversal_wizard.xml',
     ],

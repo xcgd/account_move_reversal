@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+ 
+        <record id="view_account_config_reversal" model="ir.ui.view">
+            <field name="name">account settings</field>
+            <field name="model">account.config.settings</field>
+            <field name="inherit_id" ref="account.view_account_config_settings"/>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <field name="purchase_refund_journal_id" position="after">
+                    <separator name="account_move_reversal" string="Account Move Reversal"/>
+                    <group>
+                        <label for="id" string="Default Journal"/>
+                            <div>
+                                <div>
+                                    <field name="journal_reversal" class="oe_inline"/> 
+                                </div>
+                            </div>
+                    </group>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
