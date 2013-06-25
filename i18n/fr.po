@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-25 13:39+0000\n"
-"PO-Revision-Date: 2013-06-25 13:39+0000\n"
+"POT-Creation-Date: 2013-06-25 16:49+0000\n"
+"PO-Revision-Date: 2013-06-25 16:49+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,6 @@ msgstr ""
 #: selection:account.move.reversal.create,journal_choice:0
 msgid "Choose a Specific Journal"
 msgstr "Choix d'un journal spécifique"
-
-#. module: account_move_reversal
-#: view:account.move.reversal.confirm:0
-msgid "Some moves was already reversed please select moves to reverse again:"
-msgstr "Écritures déjà extournées, sélectionnez les écritures à extourner de nouveau:"
 
 #. module: account_move_reversal
 #: view:account.move.reversal.confirm:0
@@ -51,10 +46,30 @@ msgid "Specific Journal"
 msgstr "Journal spécifique"
 
 #. module: account_move_reversal
+#: view:account.move.reversal.confirm:0
+msgid "Some moves was already reversed please select moves to reverse again:"
+msgstr "Écritures déjà extournées, sélectionnez les écritures à extourner de nouveau:"
+
+#. module: account_move_reversal
+#: view:account.config.settings:0
+msgid "Account Move Reversal"
+msgstr "Création des extrounes"
+
+#. module: account_move_reversal
 #: view:account.move.reversal.create:0
 #: model:ir.actions.act_window,name:account_move_reversal.action_account_move_reversal_create
 msgid "Create Moves Reversals"
 msgstr "Création des extournes"
+
+#. module: account_move_reversal
+#: model:ir.model,name:account_move_reversal.model_account_config_settings
+msgid "account.config.settings"
+msgstr "account.config.settings"
+
+#. module: account_move_reversal
+#: field:account.config.settings,journal_reversal:0
+msgid "Default Reversal Journal"
+msgstr "Journal d'extourne par défaut"
 
 #. module: account_move_reversal
 #: selection:account.move.reversal.create,period_choice:0
@@ -62,9 +77,19 @@ msgid "Enter a Period Offset"
 msgstr "Entrer un offset de période"
 
 #. module: account_move_reversal
+#: selection:account.move.reversal.create,journal_choice:0
+msgid "Use Journal of the Move"
+msgstr "Utiliser le journal de l'écriture"
+
+#. module: account_move_reversal
 #: view:account.move.reversal.create:0
 msgid "Journal for Reversals:"
 msgstr "Journal des extournes:"
+
+#. module: account_move_reversal
+#: field:account.move.reversal.confirm,to_confirm_id:0
+msgid "Moves To Confirm"
+msgstr "Écritures à confirmer"
 
 #. module: account_move_reversal
 #: field:account.move.reversal.create,journal_choice:0
@@ -77,14 +102,19 @@ msgid "Use Current Period"
 msgstr "Utiliser la méhode courante"
 
 #. module: account_move_reversal
+#: view:account.config.settings:0
+msgid "Default Journal"
+msgstr "Journal par défaut"
+
+#. module: account_move_reversal
 #: model:ir.model,name:account_move_reversal.model_account_move_reversal
 msgid "account.move.reversal"
 msgstr "account.move.reversal"
 
 #. module: account_move_reversal
-#: model:ir.model,name:account_move_reversal.model_account_move
-msgid "Account Entry"
-msgstr "Pièce comptable"
+#: view:account.move.reversal.confirm:0
+msgid "Confirm Moves Reversals"
+msgstr "Confirmation des extournes"
 
 #. module: account_move_reversal
 #: field:account.move.reversal.create,period_id:0
@@ -102,9 +132,9 @@ msgid "Use Default Journal"
 msgstr "Utiliser le journal par défaut"
 
 #. module: account_move_reversal
-#: view:account.move.reversal.confirm:0
-msgid "Confirm Moves Reversals"
-msgstr "Confirmation des extournes"
+#: model:ir.model,name:account_move_reversal.model_account_move
+msgid "Account Entry"
+msgstr "Pièce comptable"
 
 #. module: account_move_reversal
 #: model:ir.model,name:account_move_reversal.model_account_move_reversal_confirm
@@ -128,20 +158,10 @@ msgid "or"
 msgstr "ou"
 
 #. module: account_move_reversal
-#: field:account.move.reversal.confirm,to_confirm_id:0
-msgid "unknown"
-msgstr "inconnu"
-
-#. module: account_move_reversal
 #: view:account.move.reversal.confirm:0
 #: view:account.move.reversal.create:0
 msgid "Cancel"
 msgstr "Annuler"
-
-#. module: account_move_reversal
-#: selection:account.move.reversal.create,journal_choice:0
-msgid "Use Journal of the Move"
-msgstr "Utiliser le journal de l'écriture"
 
 #. module: account_move_reversal
 #: field:account.move.reversal.create,period_choice:0
