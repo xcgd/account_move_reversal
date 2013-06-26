@@ -14,7 +14,7 @@
                         <label for="id" string="Default Journal"/>
                             <div>
                                 <div>
-                                    <field name="journal_reversal" class="oe_inline"/> 
+                                    <field name="journal_reversal_id" class="oe_inline"/> 
                                 </div>
                             </div>
                     </group>

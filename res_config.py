@@ -13,6 +13,6 @@ class account_config_settings(osv.osv_memory):
     _name = 'account.config.settings'
 
     _columns ={
-        'journal_reversal' : fields.many2one('account.journal',
-                                             _('Default Reversal Journal'))
+        'journal_reversal_id' : fields.many2one('account.journal',
+                                                _('Default Reversal Journal'))
     }
