@@ -26,13 +26,15 @@ def _create_reversals(model, cr, uid, context):
                              _('Missing key: %s!') % key)
     # shortcut
     _move = model.pool.get('account.move')
+    journal_id = context.pop('journal_id', None) # can be None if use previous
+    period_id = context.pop('period_id')
     # create reversal
     for move in _move.browse(cr, uid, context['active_ids'], context=context):
         # journal factory
-        journal_id = context['journal_id'] or move.journal_id.id
+        _journal_id = journal_id or move.journal_id.id
         # reverse
-        _move.reverse_move(cr, uid, move, journal_id,
-                           context['period_id'], context=context)
+        _move.reverse_move(cr, uid, move, _journal_id,
+                           period_id, context=context)
 
 
 class account_move_reversal_confirm(osv.osv_memory):
