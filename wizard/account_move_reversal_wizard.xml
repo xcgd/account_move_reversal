@@ -10,7 +10,7 @@
                 <form string="Confirm Moves Reversals" version="7.0">
                     <separator string="Some moves was already reversed please select moves to reverse again:"/>
                     <group readonly="1">
-                        <field name="to_confirm_id" nolabel="1" mode="tree">
+                        <field name="to_confirm_id" nolabel="1" mode="tree" domain="[('id','in', context.get('reversed_move_ids', []))]">
                             <tree editable="bottom">
                                 <field name="name" readonly="1"/>
                                 <field name="ref" readonly="1"/>
