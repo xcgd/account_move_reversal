@@ -16,7 +16,7 @@ def _browse(pool, cr, uid, ids, context=None):
         yield record
 
 
-def _create_reversals(model, cr, uid, context=None):
+def _create_reversals(model, cr, uid, context):
     # context check
     for key in ['active_ids', 'journal_id', 'period_id']:
         # ok
@@ -24,7 +24,15 @@ def _create_reversals(model, cr, uid, context=None):
         # ??
         raise osv.except_osv(_('Invalid Context!'),
                              _('Missing key: %s!') % key)
-    # TODO
+    # shortcut
+    _move = model.pool.get('account.move')
+    # create reversal
+    for move in _move.browse(cr, uid, context['active_ids'], context=context):
+        # journal factory
+        journal_id = context['journal_id'] or move.journal_id.id
+        # reverse
+        _move.reverse_move(cr, uid, move, journal_id,
+                           context['period_id'], context=context)
 
 
 class account_move_reversal_confirm(osv.osv_memory):
@@ -94,24 +102,40 @@ class account_move_reversal_create(osv.osv_memory):
             ('reverseof_id', '!=', False)
         ])
 
-    def _get_current_period_id(self, cr, uid, offset=0, context=None):
+    def _get_offset_period_id(self, cr, uid, offset=0, context=None):
+        # shortcut
+        _period = self._period
+        # as in account addons
         _context = dict(context or {}, account_period_prefer_normal=True)
-        period_ids = self._period.find(cr, uid, context=_context) 
-        # offset check
-        if not offset < len(period_ids):
+        period_ids = _period.find(cr, uid, context=_context) 
+        # little check
+        if not period_ids:
+            raise osv.except_osv(
+                _('Period Error!'),
+                _('Current period not found!') % offset
+            )
+        # offset 0
+        if not offset:
+            return period_ids[0]
+        # browse record required to get next
+        period = _period.browse(cr, uid, period_ids[0], context=context)
+        offset_period_id = _period.next(cr, uid, period, offset,
+                                        context=context)
+        # little check
+        if not offset_period_id:
             raise osv.except_osv(
                 _('Period Offset Error!'),
                 _('Invalid period offset: %s!') % offset
             )
-        return period_ids[offset]
+        return offset_period_id
 
     def _get_period_id(self, cr, uid, record, context=None):
         # current period
         if record.period_choice == 'current':
-            return self._get_current_period_id(cr, uid, context=context)
+            return self._get_offset_period_id(cr, uid, context=context)
         # period offset
         elif record.period_choice == 'offset':
-            return self._get_current_period_id(cr, uid,
+            return self._get_offset_period_id(cr, uid,
                                                offset=record.period_offset,
                                                context=context)
         # specific period
@@ -155,7 +179,7 @@ class account_move_reversal_create(osv.osv_memory):
             return self._get_default_journal_id(cr, uid, context=context)
         # previous move
         elif record.journal_choice == 'previous':
-            return 'previous'
+            return None
         # specific journal
         elif record.journal_choice == 'specific':
             return record.journal_id.id
