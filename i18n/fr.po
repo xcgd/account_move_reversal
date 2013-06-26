@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-25 16:49+0000\n"
-"PO-Revision-Date: 2013-06-25 16:49+0000\n"
+"POT-Creation-Date: 2013-06-26 17:17+0000\n"
+"PO-Revision-Date: 2013-06-26 17:17+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,7 @@ msgid "account.config.settings"
 msgstr "account.config.settings"
 
 #. module: account_move_reversal
-#: field:account.config.settings,journal_reversal:0
+#: field:account.config.settings,journal_reversal_id:0
 msgid "Default Reversal Journal"
 msgstr "Journal d'extourne par défaut"
 
