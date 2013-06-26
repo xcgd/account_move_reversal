@@ -34,7 +34,6 @@ class account_move(osv.osv):
             'partner_id': move.partner_id.id,
             'narration': move.narration,
             'company_id': move.company_id.id,
-            'noautoreverse': True,
             'reverseof_id': move.id,
         }, context=context)
 
