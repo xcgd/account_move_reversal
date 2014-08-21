@@ -1,100 +1,66 @@
 # -*- coding: utf-8 -*-
-import openerp
 
-from osv import fields
-from osv import osv
+from openerp.osv import fields, osv
+from openerp.tools.translate import _
 
-from tools.translate import _
+from datetime import datetime
 
 
-class account_move(osv.osv):
+class account_move_reversal(osv.Model):
 
     _inherit = 'account.move'
 
     _columns ={
-        'reverseof_id' : fields.many2one('account.move', _('Reverse Of Move'))
+        'reverseof_id' : fields.many2one(
+            'account.move',
+            _('Reverse Of Move')
+        )
     }
 
     _defaults = {
-        'reverseof_id': False,
+        'reverseof_id': lambda *a: False,
     }
 
-    def _create_reversed_move(self, cr, uid, move, next_journal_id,
-                              next_period_id, context=None):
+    def reverse_move(
+        self, cr, uid, move, journal_id, period_id, context=None
+    ):
+        """ Create the reverse of 'move'.
+        We only switch debit/credit,
+        add '-canceled' after the name and reference,
+        and change the date_maturity to today
         """
-        Creates reversed move record according passed move and next period id.
 
-        Returns id of the new record.
-        """
-        return self.create(cr, uid, {
-            'name': '/' if move.name == '/' else '%s-reversed' % move.name,
-            'ref': False if not move.ref else '%s-reversed' % move.ref,
-            'period_id': next_period_id,
-            'journal_id': next_journal_id,
+        vals = {
+            'name': '/' if move.name == '/' else '%s-canceled' % move.name,
+            'ref': '' if not move.ref else '%s-canceled' % move.ref,
+            'period_id': period_id,
+            'journal_id': journal_id,
             'partner_id': move.partner_id.id,
             'narration': move.narration,
             'company_id': move.company_id.id,
             'reverseof_id': move.id,
-        }, context=context)
-
-    def _create_reversed_move_line(self, cr, uid, move_line, reversed_move_id,
-                                   context=None):
-        """
-        Creates reversed move line for the passed move line and reversed move
-        id.
-
-        Returns id of the new record.
-        """
-        move_line_pool = self.pool.get('account.move.line')
-        return move_line_pool.create(cr, uid, {
-            'name': move_line.name + '-reversed',
-            'quantity': move_line.quantity,
-            'product_uom_id': move_line.product_uom_id.id,
-            'product_id': move_line.product_id.id,
-            'debit': move_line.credit,
-            'credit': move_line.debit,
-            'account_id': move_line.account_id.id,
+        }
+        vals['line_id'] = [(0, 0, {
+            'name': aml.name + '-canceled',
+            'quantity': aml.quantity,
+            'product_uom_id': aml.product_uom_id.id,
+            'product_id': aml.product_id.id,
+            'debit': aml.credit,
+            'credit': aml.debit,
+            'account_id': aml.account_id.id,
             'move_id': reversed_move_id,
-            'narration': move_line.narration,
-            'ref': move_line.ref,
-            'amount_currency': move_line.amount_currency,
-            'currency_id': move_line.currency_id.id,
-            'partner_id': move_line.partner_id.id,
-            # 'date_maturity': move_line.date_maturitya, # TODO should we keep it??
-            'tax_code_id': move_line.tax_code_id.id,
-            'tax_amount': move_line.tax_amount,
-            'invoice': move_line.invoice.id,
-            'account_tax_id': move_line.account_tax_id.id,
-            'analytic_account_id': move_line.analytic_account_id.id,
-            'company_id': move_line.company_id.id,
-        }, context=context)
-
-    def reverse_move(self, cr, uid, move, next_journal_id, next_period_id,
-                     context=None):
-        # create next move
-        reversed_move_id =\
-            self._create_reversed_move(cr, uid, move, next_journal_id,
-                                       next_period_id, context=context)
-        # little check
-        if not reversed_move_id:
-            # error messge shortcut
-            _msg = _('Can\'t create reversed move for move %s (%s)'
-                     ' and next period id %s.')
-            _msg = _msg % (move.name, move.id, next_period_id)
-            # raise msg
-            raise osv.except_osv(_('Reverse Move Error'), _msg)
-        # create next lines
-        for move_line in move.line_id:
-            if self._create_reversed_move_line(cr, uid, move_line,
-                                               reversed_move_id,
-                                               context=context):
-                # created do next
-                continue
-            # error messge shortcut
-            _msg = _('Can\'t create reversed move line for move %s (%s)'
-                     ' and next period id %s.')
-            _msg = _msg % (move.name, move.id, next_period_id)
-            # raise msg
-            raise osv.except_osv(_('Reverse Move Line Error'), _msg)
-        # returns the new created move
+            'narration': aml.narration,
+            'ref': aml.ref,
+            'amount_currency': aml.amount_currency,
+            'currency_id': aml.currency_id.id,
+            'partner_id': aml.partner_id.id,
+            'date_maturity': datetime.now(),
+            'tax_code_id': aml.tax_code_id.id,
+            'tax_amount': aml.tax_amount,
+            'invoice': aml.invoice.id,
+            'account_tax_id': aml.account_tax_id.id,
+            'analytic_account_id': aml.analytic_account_id.id,
+            'company_id': aml.company_id.id,
+        }) for aml in move.line_id]
+        self.create(cr, uid, vals, context=context)
         return reversed_move_id
