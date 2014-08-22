@@ -33,7 +33,7 @@ def _create_reversals(model, cr, uid, context):
         # journal factory
         _journal_id = journal_id or move.journal_id.id
         # reverse
-        _move.reverse_move(cr, uid, move, _journal_id,
+        _move.reverse_move(cr, uid, move.id, _journal_id,
                            period_id, context=context)
 
 
@@ -209,12 +209,11 @@ class account_move_reversal_create(osv.osv_memory):
         context['journal_id'] = self._get_journal_id(cr, uid, record,
                                                      context=context)
         # filter ids to confirm and update the context
-        context['reversed_move_ids'] =\
-                    self._get_reversed_move_ids(cr, uid, context['active_ids'])
+        context['reversed_move_ids'] = self._get_reversed_move_ids(
+            cr, uid, context['active_ids']
+        )
         # if move already reversed just reverse and quit
         if not context['reversed_move_ids']:
-            # create reversals with context
-            # ex.: {'journal_id': 0, 'period_id': 0, 'active_ids': [0]}
             _create_reversals(self, cr, uid, context)
             # close the wizard
             return {

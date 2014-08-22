@@ -32,18 +32,6 @@
             </field>
         </record>
 
-        <!-- call from wizard code -->
-        <!--record id="action_account_move_reversal_confirm" model="ir.actions.act_window">
-            <field name="name">Confirm Moves Reversals</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">account.move.reversal.confirm</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="account_move_resersal_confirm_view"/>
-            <field name="target">new</field>
-            <field name="multi">True</field>
-        </record-->
-
         <!-- create -->
         <record id="account_move_resersal_create_view" model="ir.ui.view">
             <field name="name">Create Moves Reversals</field>
