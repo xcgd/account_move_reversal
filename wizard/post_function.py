@@ -21,7 +21,7 @@ def call_post_function(cr, uid, context):
         # We get the function addr by its name,
         # and call it with (cr, uid, *args, **kwargs)
         getattr(
-            pooler[context['post_function_obj']],
+            pooler.get_pool(cr.dbname)[context['post_function_obj']],
             context['post_function_name']
         )(
             cr, uid,
