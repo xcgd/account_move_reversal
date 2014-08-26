@@ -25,8 +25,8 @@ def call_post_function(cr, uid, context):
             context['post_function_name']
         )(
             cr, uid,
-            *context['post_function_args'],
-            **context['post_function_kwargs']
+            *context.get('post_function_args', []),
+            **context.get('post_function_kwargs', {})
         )
         # We clean the context to avoid multiple calls of the function.
         context.pop('post_function_obj')
