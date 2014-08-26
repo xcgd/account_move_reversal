@@ -4,6 +4,8 @@ from openerp.osv import osv
 
 from tools.translate import _
 
+from post_function import call_post_function
+
 
 def _browse(pool, cr, uid, ids, context=None):
     # common browse
@@ -57,9 +59,10 @@ class account_move_reversal_confirm(osv.osv_memory):
         # ex.: {'journal_id': 0, 'period_id': 0, 'active_ids': [0]}
         _create_reversals(self, cr, uid, context)
         # close
-        return {
-            'type': 'ir.actions.act_window_close',
-         }
+
+        # Call post functions set by caller
+        call_post_function(cr, uid, context)
+        return {'type': 'ir.actions.act_window_close'}
 
 
 class account_move_reversal_create(osv.osv_memory):
@@ -215,10 +218,9 @@ class account_move_reversal_create(osv.osv_memory):
         # if move already reversed just reverse and quit
         if not context['reversed_move_ids']:
             _create_reversals(self, cr, uid, context)
-            # close the wizard
-            return {
-                'type': 'ir.actions.act_window_close',
-             }
+            # Call post functions set by caller
+            call_post_function(cr, uid, context)
+            return {'type': 'ir.actions.act_window_close'}
         # remove reversed ids from active ids
         for _id in context['reversed_move_ids']:
             context['active_ids'].remove(_id)
