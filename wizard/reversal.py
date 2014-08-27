@@ -37,6 +37,12 @@ class account_move_reversal_create(osv.osv_memory):
         for ids in line_ids.values():
             aml_obj.reconcile(cr, uid, ids, context=context)
 
+    def _check_reconciliation(self, cr, uid, move, context):
+        for line in move.line_id:
+            if line.reconcile_partial_id or line.reconcile_id:
+                return False
+        return True
+
     def create_reversals(self, cr, uid, ids, context=None):
         wizard = self.browse(cr, uid, ids[0], context=context)
 
@@ -46,6 +52,12 @@ class account_move_reversal_create(osv.osv_memory):
         for move in move_obj.browse(
             cr, uid, context['active_ids'], context=context
         ):
+            if self._check_reconciliation(cr, uid, move, context):
+                raise osv.except_osv(
+                    _(u"Error"),
+                    _(u"One of the transaction of te journal is reconciled. "
+                      u"Canceling the invoice is forbidden.")
+                )
 
             reversed_move_id = move_obj.reverse_move(
                 cr, uid, move.id, move.journal_id.id, period_id, context=context
