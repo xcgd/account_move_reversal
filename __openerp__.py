@@ -9,7 +9,7 @@
     'maintainer': 'Florent Pigout <florent.pigout@gmail.com>',
     'website': 'http://www.xcg-consulting.fr/fr/services/openerp',
     'depends': [
-        'account_accountant',
+        'account_streamline',
     ],
     'data': [
         'account_move_reversal_view.xml',

@@ -11,15 +11,24 @@ class account_move_reversal(osv.Model):
     _inherit = 'account.move'
 
     _columns ={
-        'reverseof_id' : fields.many2one(
-            'account.move',
-            _('Reverse Of Move')
-        )
     }
      
     _defaults = {
         'reverseof_id': lambda *a: False,
     }
+
+    def button_reverse_move(self, cr, uid, ids, context=None):
+        moves = self.browse(cr, uid, ids, context=context)
+        context['active_ids'] = [move.id for move in moves]
+        return {
+            'name': 'Create Move Reversals',
+            'type': 'ir.actions.act_window',
+            'res_model': 'account.move.reversal.create',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': context
+        }
 
     def reverse_move(
         self, cr, uid, move_id, journal_id, period_id, context=None

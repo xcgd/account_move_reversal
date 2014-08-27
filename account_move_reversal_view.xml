@@ -6,11 +6,11 @@
     <record id="view_account_move_reversal_form" model="ir.ui.view">
         <field name="name">account.move.form.reversal</field>
         <field name="model">account.move</field>
-        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="inherit_id" ref="account_streamline.view_move_form_streamline"/>
         <field name="arch" type="xml">
-            <field name="to_check" position="after">
-                <field name="reverseof_id" attrs="{'invisible':[('reverseof_id', '=', False)]}"/> 
-            </field>
+            <xpath expr="//button[@name='button_cancel']" position="after">
+                <button name="button_reverse_move" states="posted" string="Reverse Entry" type="object" groups="account.group_account_user" />
+            </xpath>
         </field>
     </record>
 
