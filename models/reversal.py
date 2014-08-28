@@ -10,13 +10,6 @@ class account_move_reversal(osv.Model):
 
     _inherit = 'account.move'
 
-    _columns ={
-    }
-     
-    _defaults = {
-        'reverseof_id': lambda *a: False,
-    }
-
     def button_reverse_move(self, cr, uid, ids, context=None):
         moves = self.browse(cr, uid, ids, context=context)
         context['active_ids'] = [move.id for move in moves]
