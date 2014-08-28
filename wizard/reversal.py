@@ -19,10 +19,6 @@ class account_move_reversal_create(osv.osv_memory):
         ),
     }
 
-    _defaults = {
-        'period_offset': 0
-    }
-
     def reconcile_moves(self, cr, uid, moves, context):
         aml_obj = self.pool['account.move.line']
         
