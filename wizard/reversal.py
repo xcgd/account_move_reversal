@@ -36,8 +36,8 @@ class account_move_reversal_create(osv.osv_memory):
     def _check_reconciliation(self, cr, uid, move, context):
         for line in move.line_id:
             if line.reconcile_partial_id or line.reconcile_id:
-                return False
-        return True
+                return True
+        return False
 
     def create_reversals(self, cr, uid, ids, context=None):
         wizard = self.browse(cr, uid, ids[0], context=context)
