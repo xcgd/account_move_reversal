@@ -36,6 +36,13 @@ class account_move_reversal(osv.Model):
 
         move = move_obj.browse(cr, uid, move_id, context=context)
 
+        # TODO translate in English
+        if not move.account_id.reconcile:
+            raise osv.except_osv(
+                _('Error'),
+                _('Le lettrage est interdit sur l’un des comptes du journal sélectionné, veuillez contacter votre administrateur')
+            )
+
         # Specific changes for move
 
         vals = {
