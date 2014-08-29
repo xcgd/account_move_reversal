@@ -52,7 +52,7 @@ class account_move_reversal_create(osv.osv_memory):
                 raise osv.except_osv(
                     _(u"Error"),
                     _(u"One of the transaction of te journal is reconciled. "
-                      u"Canceling the invoice is forbidden.")
+                      u"Reversing the move is forbidden.")
                 )
 
             reversed_move_id = move_obj.reverse_move(
