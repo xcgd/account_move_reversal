@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Account Move Reversal',
-    'version': '1.2.3',
+    'version': '1.2.4-dev',
     'category': 'XCG Consulting',
     'description': """
 """,
     'author': 'Florent Pigout <florent.pigout@gmail.com>',
-    'maintainer': 'Florent Pigout <florent.pigout@gmail.com>',
-    'website': 'http://www.xcg-consulting.fr/fr/services/openerp',
+#    'maintainer': '',
+    'website': 'http://www.openerp-experts.net/',
     'depends': [
         'account_streamline',
     ],
