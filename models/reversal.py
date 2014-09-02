@@ -36,22 +36,6 @@ class account_move_reversal(osv.Model):
 
         move = move_obj.browse(cr, uid, move_id, context=context)
 
-        # TODO translate in English
-        cred_acc = move.journal_id.default_credit_account_id
-        deb_acc = move.journal_id.default_debit_account_id
-        # We verify that one account is defined
-        # and that 
-        if not (
-            (cred_acc or deb_acc) and
-            ((cred_acc and cred_acc.reconcile) or
-             (deb_acc and deb_acc.reconcile))
-        ):
-            raise osv.except_osv(
-                _(u"Error"),
-                _(u"Reconciliation is forbidden on the selected journal,"
-                  u" please contact your administrator.")
-            )
-
         # Specific changes for move
 
         vals = {
