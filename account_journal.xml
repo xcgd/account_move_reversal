@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    
+    <record id="view_account_journal_reversal_form" model="ir.ui.view">
+        <field name="name">account.journal.reversal.form</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account_streamline.view_account_journal_form_streamline"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_limited']" position="after">
+                <field name="is_reversable" />
+            </xpath>
+        </field>
+    </record>
+
+    </data>
+</openerp>
