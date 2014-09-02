@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Account Move Reversal',
-    'version': '1.2.6',
+    'version': '1.2.7',
     'category': 'XCG Consulting',
     'description': """
 """,
