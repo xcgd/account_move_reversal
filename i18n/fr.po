@@ -119,7 +119,7 @@ msgstr "Période pour les extournes:"
 #: code:addons/account_move_reversal/models/reversal.py:18
 #, python-format
 msgid "Reversal is not allowed in this journal."
-msgstr "Reversal is not allowed in this journal."
+msgstr "L'extourne n'est pas autorisée sur ce journal."
 
 #. module: account_move_reversal
 #: model:ir.model,name:account_move_reversal.model_account_journal
