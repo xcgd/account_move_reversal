@@ -6,7 +6,10 @@ from openerp.osv import osv
 
 from tools.translate import _
 
-from post_function import call_post_function
+from post_function import (
+    call_post_function,
+    call_post_err_function,
+)
 
 
 class account_move_reversal_create(osv.osv_memory):
@@ -39,7 +42,7 @@ class account_move_reversal_create(osv.osv_memory):
                 return True
         return False
 
-    def create_reversals(self, cr, uid, ids, context=None):
+    def __create_reversals(self, cr, uid, ids, context):
         wizard = self.browse(cr, uid, ids[0], context=context)
 
         move_obj = self.pool['account.move']
@@ -67,3 +70,10 @@ class account_move_reversal_create(osv.osv_memory):
         call_post_function(cr, uid, context)
 
         return {'type': 'ir.actions.act_window_close'}
+
+    def create_reversals(self, cr, uid, ids, context=None):
+        try:
+            self.__create_reversals(cr, uid, ids, context)
+        except Exception as e:
+            call_post_err_function(cr, uid, context)
+            raise e
