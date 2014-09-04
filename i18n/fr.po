@@ -1,43 +1,33 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-# * account_move_reversal
-# Vincent Lhote-Hatakeyama <vincent.lhote@xcg-consulting.fr>, 2014.
+#	* account_move_reversal
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-01 12:34+0000\n"
-"PO-Revision-Date: 2014-09-01 14:44+0200\n"
-"Last-Translator: Vincent Lhote-Hatakeyama <vincent.lhote@xcg-consulting.fr>\n"
-"Language-Team: XCG Consulting\n"
-"Language: fr\n"
+"POT-Creation-Date: 2014-09-04 13:51+0000\n"
+"PO-Revision-Date: 2014-09-04 13:51+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"Plural-Forms: \n"
 
 #. module: account_move_reversal
-#: code:addons/account_move_reversal/models/reversal.py:94
+#: code:addons/account_move_reversal/models/reversal.py:84
 #, python-format
 msgid "-canceled"
 msgstr "-annulé"
 
 #. module: account_move_reversal
-#: code:addons/account_move_reversal/models/reversal.py:51
-#, python-format
-msgid "Reconciliation is forbidden on the selected journal, please contact your administrator."
-msgstr ""
-"Le lettrage est interdit sur l’un des comptes du journal, veuillez contacter "
-"votre administrateur."
-
-#. module: account_move_reversal
 #: model:ir.model,name:account_move_reversal.model_account_move
 msgid "Account Entry"
-msgstr "Pièce comptable"
+msgstr "Ecriture comptable"
 
 #. module: account_move_reversal
-#: code:addons/account_move_reversal/wizard/reversal.py:54
+#: code:addons/account_move_reversal/wizard/reversal.py:57
 #, python-format
 msgid "One of the transaction of te journal is reconciled. Reversing the move is forbidden."
 msgstr "Une des transactions du journal est lettré. L’extourne est interdite."
@@ -58,18 +48,23 @@ msgid "Create"
 msgstr "Créer"
 
 #. module: account_move_reversal
-#: code:addons/account_move_reversal/models/reversal.py:50
-#: code:addons/account_move_reversal/wizard/reversal.py:53
+#: code:addons/account_move_reversal/models/reversal.py:17
+#: code:addons/account_move_reversal/wizard/reversal.py:56
 #, python-format
 msgid "Error"
 msgstr "Erreur"
 
 #. module: account_move_reversal
 #: field:account.move.reversal.create,period_id:0
-#: code:addons/account_move_reversal/wizard/reversal.py:18
+#: code:addons/account_move_reversal/wizard/reversal.py:21
 #, python-format
 msgid "Period"
 msgstr "Période"
+
+#. module: account_move_reversal
+#: view:account.move:0
+msgid "base.group_no_one"
+msgstr "base.group_no_one"
 
 #. module: account_move_reversal
 #: view:account.move.reversal.create:0
@@ -87,6 +82,11 @@ msgid "Reverse Entry"
 msgstr "Extourner"
 
 #. module: account_move_reversal
+#: field:account.journal,is_reversable:0
+msgid "Is Reversable"
+msgstr "Est extournable"
+
+#. module: account_move_reversal
 #: view:account.config.settings:0
 msgid "Default Journal"
 msgstr "Journal par défaut"
@@ -99,8 +99,8 @@ msgid "Default Reversal Journal"
 msgstr "Journal d'extourne par défaut"
 
 #. module: account_move_reversal
-#: code:addons/account_move_reversal/models/reversal.py:58
-#: code:addons/account_move_reversal/models/reversal.py:59
+#: code:addons/account_move_reversal/models/reversal.py:48
+#: code:addons/account_move_reversal/models/reversal.py:49
 #, python-format
 msgid "%s-canceled"
 msgstr "%s-annulé"
@@ -116,63 +116,18 @@ msgid "Period for Reversals:"
 msgstr "Période pour les extournes:"
 
 #. module: account_move_reversal
+#: code:addons/account_move_reversal/models/reversal.py:18
+#, python-format
+msgid "Reversal is not allowed in this journal."
+msgstr "Reversal is not allowed in this journal."
+
+#. module: account_move_reversal
+#: model:ir.model,name:account_move_reversal.model_account_journal
+msgid "Journal"
+msgstr "Journal"
+
+#. module: account_move_reversal
 #: view:account.config.settings:0
 msgid "Account Move Reversal"
 msgstr "Création des extrounes"
 
-#~ msgid "Choose a Specific Journal"
-#~ msgstr "Choix d'un journal spécifique"
-
-#~ msgid "Confirm"
-#~ msgstr "Confirmer"
-
-#~ msgid "Period Offset"
-#~ msgstr "Offset de période"
-
-#~ msgid "Specific Journal"
-#~ msgstr "Journal spécifique"
-
-#~ msgid "Some moves was already reversed please select moves to reverse again:"
-#~ msgstr "Écritures déjà extournées, sélectionnez les écritures à extourner de nouveau:"
-
-#~ msgid "Enter a Period Offset"
-#~ msgstr "Entrer un offset de période"
-
-#~ msgid "Use Journal of the Move"
-#~ msgstr "Utiliser le journal de l'écriture"
-
-#~ msgid "Journal for Reversals:"
-#~ msgstr "Journal des extournes:"
-
-#~ msgid "Moves To Confirm"
-#~ msgstr "Écritures à confirmer"
-
-#~ msgid "Journal Choice"
-#~ msgstr "Choix du journal"
-
-#~ msgid "Use Current Period"
-#~ msgstr "Utiliser la méhode courante"
-
-#~ msgid "account.move.reversal"
-#~ msgstr "account.move.reversal"
-
-#~ msgid "Confirm Moves Reversals"
-#~ msgstr "Confirmation des extournes"
-
-#~ msgid "Specific Period"
-#~ msgstr "Période spécifique"
-
-#~ msgid "Choose a Specific Period"
-#~ msgstr "Choisir une période spécifique"
-
-#~ msgid "Use Default Journal"
-#~ msgstr "Utiliser le journal par défaut"
-
-#~ msgid "account.move.reversal.confirm"
-#~ msgstr "account.move.reversal.confirm"
-
-#~ msgid "Reverse Of Move"
-#~ msgstr "Extourne de l'écriture"
-
-#~ msgid "Period Choice"
-#~ msgstr "Choix de la période"
