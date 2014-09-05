@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-04 15:24+0000\n"
-"PO-Revision-Date: 2014-09-04 15:24+0000\n"
+"POT-Creation-Date: 2014-09-05 13:27+0000\n"
+"PO-Revision-Date: 2014-09-05 13:27+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,15 +16,20 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_move_reversal
-#: code:addons/account_move_reversal/models/reversal.py:84
+#: code:addons/account_move_reversal/models/reversal.py:82
 #, python-format
 msgid "-canceled"
-msgstr "-annulé"
+msgstr "-annulée"
 
 #. module: account_move_reversal
 #: model:ir.model,name:account_move_reversal.model_account_move
 msgid "Account Entry"
 msgstr "Ecriture comptable"
+
+#. module: account_move_reversal
+#: model:ir.model,name:account_move_reversal.model_account_move_reversal_create
+msgid "account.move.reversal.create"
+msgstr "account.move.reversal.create"
 
 #. module: account_move_reversal
 #: code:addons/account_move_reversal/wizard/reversal.py:57
@@ -48,18 +53,11 @@ msgid "Create"
 msgstr "Créer"
 
 #. module: account_move_reversal
-#: code:addons/account_move_reversal/models/reversal.py:17
+#: code:addons/account_move_reversal/models/reversal.py:15
 #: code:addons/account_move_reversal/wizard/reversal.py:56
 #, python-format
 msgid "Error"
 msgstr "Erreur"
-
-#. module: account_move_reversal
-#: field:account.move.reversal.create,period_id:0
-#: code:addons/account_move_reversal/wizard/reversal.py:21
-#, python-format
-msgid "Period"
-msgstr "Période"
 
 #. module: account_move_reversal
 #: view:account.move:0
@@ -72,19 +70,14 @@ msgid "or"
 msgstr "ou"
 
 #. module: account_move_reversal
-#: model:ir.model,name:account_move_reversal.model_account_move_reversal_create
-msgid "account.move.reversal.create"
-msgstr "account.move.reversal.create"
+#: field:account.journal,is_not_reversable:0
+msgid "Reversal forbidden"
+msgstr "Extourne interdite"
 
 #. module: account_move_reversal
-#: view:account.move:0
-msgid "Reverse Entry"
-msgstr "Extourner"
-
-#. module: account_move_reversal
-#: field:account.journal,is_reversable:0
-msgid "Is Reversable"
-msgstr "Est extournable"
+#: field:account.move.reversal.create,date:0
+msgid "Reversal date"
+msgstr "Date d'extourne"
 
 #. module: account_move_reversal
 #: view:account.config.settings:0
@@ -93,17 +86,17 @@ msgstr "Journal par défaut"
 
 #. module: account_move_reversal
 #: field:account.config.settings,journal_reversal_id:0
-#: code:addons/account_move_reversal/res_config.py:17
+#: code:addons/account_move_reversal/res_config.py:14
 #, python-format
 msgid "Default Reversal Journal"
 msgstr "Journal d'extourne par défaut"
 
 #. module: account_move_reversal
-#: code:addons/account_move_reversal/models/reversal.py:48
-#: code:addons/account_move_reversal/models/reversal.py:49
+#: code:addons/account_move_reversal/models/reversal.py:46
+#: code:addons/account_move_reversal/models/reversal.py:47
 #, python-format
 msgid "%s-canceled"
-msgstr "%s-annulé"
+msgstr "%s-annulée"
 
 #. module: account_move_reversal
 #: view:account.move.reversal.create:0
@@ -116,7 +109,7 @@ msgid "Period for Reversals:"
 msgstr "Période pour les extournes:"
 
 #. module: account_move_reversal
-#: code:addons/account_move_reversal/models/reversal.py:18
+#: code:addons/account_move_reversal/models/reversal.py:16
 #, python-format
 msgid "Reversal is not allowed in this journal."
 msgstr "L'extourne n'est pas autorisée sur ce journal."
@@ -125,6 +118,11 @@ msgstr "L'extourne n'est pas autorisée sur ce journal."
 #: model:ir.model,name:account_move_reversal.model_account_journal
 msgid "Journal"
 msgstr "Journal"
+
+#. module: account_move_reversal
+#: view:account.move:0
+msgid "Reverse Entry"
+msgstr "Extourner"
 
 #. module: account_move_reversal
 #: view:account.config.settings:0
