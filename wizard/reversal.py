@@ -17,9 +17,7 @@ class account_move_reversal_create(osv.osv_memory):
     _name = 'account.move.reversal.create'
 
     _columns = {
-        'period_id': fields.many2one(
-            'account.period', _('Period'), required=True
-        ),
+        'date': fields.date(u"Reversal date", required=True),
     }
 
     def reconcile_moves(self, cr, uid, moves, context):
@@ -46,7 +44,9 @@ class account_move_reversal_create(osv.osv_memory):
         wizard = self.browse(cr, uid, ids[0], context=context)
 
         move_obj = self.pool['account.move']
-        period_id = wizard.period_id.id
+        period_id = self.pool['account.period'].find(
+            cr, uid, dt=wizard.date, context=context
+        )[0]
 
         for move in move_obj.browse(
             cr, uid, context['active_ids'], context=context
