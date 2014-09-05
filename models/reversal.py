@@ -28,7 +28,7 @@ class account_move_reversal(osv.Model):
         }
 
     def reverse_move(
-        self, cr, uid, move_id, journal_id, period_id, context=None
+        self, cr, uid, move_id, journal_id, date, context=None
     ):
         """ Create the reverse of 'move'.
         We only switch debit/credit,
@@ -39,6 +39,9 @@ class account_move_reversal(osv.Model):
         move_obj = self.pool['account.move']
 
         move = move_obj.browse(cr, uid, move_id, context=context)
+        period_id = self.pool['account.period'].find(
+            cr, uid, dt=date, context=context
+        )[0]
 
         # Specific changes for move
 
@@ -46,6 +49,7 @@ class account_move_reversal(osv.Model):
             'name': '/' if move.name == '/' else _('%s-canceled') % move.name,
             'ref': '' if not move.ref else _('%s-canceled') % move.ref,
             'period_id': period_id,
+            'date': date,
             'journal_id': journal_id,
             'partner_id': move.partner_id.id,
             'narration': move.narration,

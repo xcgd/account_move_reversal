@@ -44,9 +44,6 @@ class account_move_reversal_create(osv.osv_memory):
         wizard = self.browse(cr, uid, ids[0], context=context)
 
         move_obj = self.pool['account.move']
-        period_id = self.pool['account.period'].find(
-            cr, uid, dt=wizard.date, context=context
-        )[0]
 
         for move in move_obj.browse(
             cr, uid, context['active_ids'], context=context
@@ -61,7 +58,7 @@ class account_move_reversal_create(osv.osv_memory):
             reversed_move_id = move_obj.reverse_move(
                 cr, uid, move.id,
                 move.journal_id.id,
-                period_id,
+                wizard.date,
                 context=context
             )
             reversed_move = move_obj.browse(
