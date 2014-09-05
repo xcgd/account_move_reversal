@@ -3,7 +3,6 @@ import os
 import time
 
 from openerp.tools import convert_xml_import
-from osv import osv
 
 from openerp.tests.common import TransactionCase
 
@@ -23,7 +22,7 @@ class TestReversal(TransactionCase):
 
     def tearDown(self):
         self.cr.rollback()
- 
+
     def _get_id(self, model, filter_):
         cr, uid = self.cr, self.uid
         res = model.search(cr, uid, filter_)
@@ -51,12 +50,12 @@ class TestReversal(TransactionCase):
 
     @property
     def _settings(self):
-        return self.pool.get('account.config.settings') 
+        return self.pool.get('account.config.settings')
 
     def _iter_move_ids(self):
         cr, uid = self.cr, self.uid
         for i in self._move.search(cr, uid, [('reverseof_id', '=', False)]):
-            yield i    
+            yield i
 
     def _iter_moves(self):
         cr, uid = self.cr, self.uid
@@ -67,7 +66,6 @@ class TestReversal(TransactionCase):
             yield move
 
     def _iter_moves_lines(self):
-        cr, uid = self.cr, self.uid
         for move in self._iter_moves():
             for move_line in move.line_id:
                 yield move_line
@@ -79,18 +77,17 @@ class TestReversal(TransactionCase):
             ('credit', '=', move_line.debit),
             ('debit', '=', move_line.credit)
         ]
-        for next_line_id in self._move_line.search(cr, uid,
-                                                        next_line_filter):
+        for next_line_id in self._move_line.search(
+            cr, uid, next_line_filter
+        ):
             yield self._move_line.browse(cr, uid, next_line_id)
 
     def _journal_id(self):
-        cr, uid = self.cr, self.uid
         return self._get_id(self._journal, [
             ('code', '=', 'TBNK')
         ])
 
     def _period_id(self, month='01'):
-        cr, uid = self.cr, self.uid
         return self._get_id(self._period, [
             ('code', 'like', month + '%')
         ])
@@ -116,23 +113,46 @@ class TestReversal(TransactionCase):
             next_move_line = next_move_line[0]
             # check reversed moves lines
             self.assertEqual(next_move_line.quantity, move_line.quantity)
-            self.assertEqual(next_move_line.product_id.id, move_line.product_id.id)
-            self.assertEqual(next_move_line.account_id.id, move_line.account_id.id)
-            self.assertEqual(next_move_line.statement_id.id, move_line.statement_id.id)
-            self.assertEqual(next_move_line.amount_currency, move_line.amount_currency)
-            self.assertEqual(next_move_line.currency_id.id, move_line.currency_id.id)
+            self.assertEqual(
+                next_move_line.product_id.id, move_line.product_id.id
+            )
+            self.assertEqual(
+                next_move_line.account_id.id, move_line.account_id.id
+            )
+            self.assertEqual(
+                next_move_line.statement_id.id, move_line.statement_id.id
+            )
+            self.assertEqual(
+                next_move_line.amount_currency, move_line.amount_currency
+            )
+            self.assertEqual(
+                next_move_line.currency_id.id, move_line.currency_id.id
+            )
             self.assertEqual(next_move_line.journal_id.id, journal_id)
             self.assertEqual(next_move_line.period_id.id, period_id)
             self.assertEqual(next_move_line.blocked, move_line.blocked)
-            self.assertEqual(next_move_line.partner_id.id, move_line.partner_id.id)
+            self.assertEqual(
+                next_move_line.partner_id.id, move_line.partner_id.id
+            )
             # self.assertEqual(next_move_line.balance, 0.0) # !! not 0 ??
             self.assertEqual(next_move_line.state, move_line.state)
             self.assertEqual(next_move_line.invoice.id, move_line.invoice.id)
-            self.assertEqual(next_move_line.tax_code_id.id, move_line.tax_code_id.id)
-            self.assertEqual(next_move_line.tax_amount, move_line.tax_amount)
-            self.assertEqual(next_move_line.account_tax_id.id, move_line.account_tax_id.id)
-            self.assertEqual(next_move_line.analytic_account_id.id, move_line.analytic_account_id.id)
-            self.assertEqual(next_move_line.company_id.id, move_line.company_id.id)
+            self.assertEqual(
+                next_move_line.tax_code_id.id, move_line.tax_code_id.id
+            )
+            self.assertEqual(
+                next_move_line.tax_amount, move_line.tax_amount
+            )
+            self.assertEqual(
+                next_move_line.account_tax_id.id, move_line.account_tax_id.id
+            )
+            self.assertEqual(
+                next_move_line.analytic_account_id.id,
+                move_line.analytic_account_id.id
+            )
+            self.assertEqual(
+                next_move_line.company_id.id, move_line.company_id.id
+            )
 
     def test_reversed_moves_refs(self):
         cr, uid = self.cr, self.uid
@@ -155,8 +175,9 @@ class TestReversal(TransactionCase):
         for _id in self._iter_move_ids():
             self._move.write(cr, uid, [_id], {'ref': False})
             move = self._move.browse(cr, uid, _id)
-            reverse_move_id = self._move.reverse_move(cr, uid, move,
-                                                        journal_id, period_id)
+            reverse_move_id = self._move.reverse_move(
+                cr, uid, move, journal_id, period_id
+            )
             reverse_move = self._move.browse(cr, uid, reverse_move_id)
             # check reversed moves
             self.assertFalse(reverse_move.ref)
@@ -213,16 +234,18 @@ class TestReversal(TransactionCase):
         # check
         self.assertEqual(period_id, offset_period_id)
         # period +1
-        period_plus_1_id =\
-             self._period_id(month='%02d' % (int(time.strftime('%m')) + 1))
+        period_plus_1_id = self._period_id(
+            month='%02d' % (int(time.strftime('%m')) + 1)
+        )
         # offset period id to test
         offset_period_id = self._reversal_create\
                                ._get_offset_period_id(cr, uid, offset=1)
         # check
         self.assertEqual(period_plus_1_id, offset_period_id)
         # period +1
-        period_plus_2_id =\
-             self._period_id(month='%02d' % (int(time.strftime('%m')) + 2))
+        period_plus_2_id = self._period_id(
+            month='%02d' % (int(time.strftime('%m')) + 2)
+        )
         # offset period id to test
         offset_period_id = self._reversal_create\
                                ._get_offset_period_id(cr, uid, offset=2)

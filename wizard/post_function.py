@@ -4,14 +4,16 @@ from openerp import pooler
 def call_post_function(cr, uid, context):
     __call_fct(cr, uid, context, 'post_function_')
 
+
 def call_post_err_function(cr, uid, context):
     __call_fct(cr, uid, context, 'post_err_function_')
+
 
 def __call_fct(cr, uid, context, context_key):
     """This functionality allows users of module account.move.reversal
       to call a function of the desired openerp model, after the
       reversal of the move.
-    The call automatically sends at least the database cursor (cr) and 
+    The call automatically sends at least the database cursor (cr) and
       the user id (uid) for security reasons.
     Two key parameters are required in the context to do so:
         - 'post_function_obj': the osv model where the function is defined,

@@ -6,7 +6,7 @@
     'description': """
 """,
     'author': 'XCG Consulting',
-#    'maintainer': '',
+    # 'maintainer': '',
     'website': 'http://www.openerp-experts.net/',
     'depends': [
         'account_streamline',

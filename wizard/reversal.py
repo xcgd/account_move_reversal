@@ -24,7 +24,7 @@ class account_move_reversal_create(osv.osv_memory):
 
     def reconcile_moves(self, cr, uid, moves, context):
         aml_obj = self.pool['account.move.line']
-        
+
         line_ids = defaultdict(list)
 
         # We regroup amls by account
@@ -59,7 +59,10 @@ class account_move_reversal_create(osv.osv_memory):
                 )
 
             reversed_move_id = move_obj.reverse_move(
-                cr, uid, move.id, move.journal_id.id, period_id, context=context
+                cr, uid, move.id,
+                move.journal_id.id,
+                period_id,
+                context=context
             )
             reversed_move = move_obj.browse(
                 cr, uid, [reversed_move_id], context

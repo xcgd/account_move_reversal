@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from openerp.osv import fields, osv
+from openerp.osv import osv
 from openerp.tools.translate import _
-
-from datetime import datetime
 
 
 class account_move_reversal(osv.Model):
