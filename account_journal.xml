@@ -8,7 +8,7 @@
         <field name="inherit_id" ref="account_streamline.view_account_journal_form_streamline"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='is_limited']" position="after">
-                <field name="is_reversable" />
+                <field name="is_not_reversable" />
             </xpath>
         </field>
     </record>

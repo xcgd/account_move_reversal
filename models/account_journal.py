@@ -6,5 +6,5 @@ class account_journal(osv.Model):
     _inherit = 'account.journal'
 
     _columns = {
-        'is_reversable': fields.boolean(u"Is Reversable")
+        'is_not_reversable': fields.boolean(u"Reversal forbidden")
     }

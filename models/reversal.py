@@ -10,7 +10,7 @@ class account_move_reversal(osv.Model):
 
     def button_reverse_move(self, cr, uid, ids, context=None):
         move = self.browse(cr, uid, ids, context=context)[0]
-        if not move.journal_id.is_reversable:
+        if move.journal_id.is_not_reversable:
             raise osv.except_osv(
                 _(u"Error"),
                 _(u"Reversal is not allowed in this journal.")
