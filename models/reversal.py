@@ -11,14 +11,14 @@ class account_move_reversal(osv.Model):
     _inherit = 'account.move'
 
     def button_reverse_move(self, cr, uid, ids, context=None):
-        moves = self.browse(cr, uid, ids, context=context)
+        move = self.browse(cr, uid, ids, context=context)[0]
         if not move.journal_id.is_reversable:
             raise osv.except_osv(
                 _(u"Error"),
                 _(u"Reversal is not allowed in this journal.")
             )
 
-        context['active_ids'] = [move.id for move in moves]
+        context['active_ids'] = move.id
         return {
             'name': 'Create Move Reversals',
             'type': 'ir.actions.act_window',
