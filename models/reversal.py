@@ -16,7 +16,7 @@ class account_move_reversal(osv.Model):
                 _(u"Reversal is not allowed in this journal.")
             )
 
-        context['active_ids'] = move.id
+        context['active_ids'] = [move.id]
         return {
             'name': 'Create Move Reversals',
             'type': 'ir.actions.act_window',
