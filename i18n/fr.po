@@ -35,7 +35,7 @@ msgstr "account.move.reversal.create"
 #: code:addons/account_move_reversal/wizard/reversal.py:57
 #, python-format
 msgid "One of the transaction of te journal is reconciled. Reversing the move is forbidden."
-msgstr "Une des transactions du journal est lettré. L’extourne est interdite."
+msgstr "Une des transactions du journal est lettrée. L’extourne est interdite."
 
 #. module: account_move_reversal
 #: model:ir.model,name:account_move_reversal.model_account_config_settings
