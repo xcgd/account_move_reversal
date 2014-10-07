@@ -11,9 +11,6 @@
             <xpath expr="//button[@name='button_cancel']" position="after">
                 <button name="button_reverse_move" states="posted" string="Reverse Entry" type="object" groups="account.group_account_user" />
             </xpath>
-            <xpath expr="//button[@name='button_cancel']" position="attributes">
-                <attribute name="groups">account.group_account_user</attribute>
-            </xpath>
         </field>
     </record>
 
