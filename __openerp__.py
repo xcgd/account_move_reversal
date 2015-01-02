@@ -2,12 +2,12 @@
 {
     'name': 'Account Move Reversal',
     'version': '1.4.1',
-    'category': 'XCG Consulting',
+    'category': 'Accounting & Finance',
     'description': """
 """,
     'author': 'XCG Consulting',
     # 'maintainer': '',
-    'website': 'http://www.openerp-experts.net/',
+    'website': 'http://odoo.consulting/',
     'depends': [
         'account_streamline',
     ],
