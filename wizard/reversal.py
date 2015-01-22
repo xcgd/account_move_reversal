@@ -4,7 +4,7 @@ from collections import defaultdict
 from openerp.osv import fields
 from openerp.osv import osv
 
-from tools.translate import _
+from openerp.tools.translate import _
 
 from post_function import (
     call_post_function,

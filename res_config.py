@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from openerp.osv import fields, osv
 
-from tools.translate import _
+from openerp.tools.translate import _
 
 
 class account_config_settings(osv.osv_memory):
