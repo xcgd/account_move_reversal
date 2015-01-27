@@ -20,7 +20,7 @@
 ##############################################################################
 {
     'name': 'Account Move Reversal',
-    'version': '1.4.1',
+    'version': '2.0',
     'category': 'Accounting & Finance',
     'description': """
 """,
