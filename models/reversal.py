@@ -54,6 +54,7 @@ class account_move_reversal(osv.Model):
             'partner_id': move.partner_id.id,
             'narration': move.narration,
             'company_id': move.company_id.id,
+            'message_ids': [(5,)],
         }
 
         # Dynamically copy fields of move lines.
@@ -87,6 +88,7 @@ class account_move_reversal(osv.Model):
             new_line['debit'] = aml.credit
             new_line['credit'] = aml.debit
             new_line['amount_currency'] = -aml.amount_currency
+            new_line['message_ids'] = [(5,)]
 
             vals['line_id'].append((0, 0, new_line))
 
