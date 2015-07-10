@@ -25,12 +25,17 @@ class account_move_reversal_create(osv.osv_memory):
 
         line_ids = defaultdict(list)
 
-        # We regroup amls by account
+        # We regroup amls by account and partner
         for move in moves:
             for line in move.line_id:
-                line_ids[line.account_id.id].append(line.id)
+                key = None
+                if line.partner_id.id:
+                    key = (line.account_id.id, line.partner_id.id)
+                else:
+                    key = line.account_id.id
+                line_ids[key].append(line.id)
 
-        # we reconcile for each account
+        # we reconcile for each account and partner
         for ids in line_ids.values():
             aml_obj.reconcile(cr, uid, ids, context=context)
 
