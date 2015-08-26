@@ -20,7 +20,7 @@
 ##############################################################################
 {
     'name': 'Account Move Reversal',
-    'version': '1.5',
+    'version': 'odoo7-1.5.1',
     'category': 'Accounting & Finance',
     'description': """
 """,
